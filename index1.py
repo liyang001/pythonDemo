@@ -340,6 +340,70 @@
 
 
 #
+# 生成器
+
+# 通过列表生成式，我们可以直接创建一个列表。但是，受到内存限制，列表容量肯定是有限的。
+# 而且，创建一个包含100万个元素的列表，不仅占用很大的存储空间，如果我们仅仅需要访问前面几个元素，那后面绝大多数元素占用的空间都白白浪费了。
+
+# 所以，如果列表元素可以按照某种算法推算出来，那我们是否可以在循环的过程中不断推算出后续的元素呢？这样就不必创建完整的list，
+# 从而节省大量的空间。在Python中，这种一边循环一边计算的机制，称为生成器：generator。
+
+# L = [x *x for x in range(10)]
+# print(L)
+#
+# g = (x*x for x in range(10))
+#
+# for n in g:
+#     print(n)
+
+# 函数是顺序执行，遇到return语句或者最后一行函数语句就返回。而变成generator的函数，
+# 在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行。
+
+# def fib(max):
+#     n,a,b = 0,0,1
+#     while n<max:
+#         yield b
+#         a,b = b,a+b
+#         n = n +1
+# g = fib(6)
+#
+# for n in g:
+#     print(n)
+
+# def odd(x):
+#     print('step 1')
+#     yield x+1
+#     print('step 2')
+#     yield(x+3)
+#     print('step 3')
+#     yield(5+x)
+#
+# o = odd(5)
+# print(next(o))
+# print(next(o))
+# print(next(o))
+
+# 我们已经知道，可以直接作用于for循环的数据类型有以下几种：
+#
+# 一类是集合数据类型，如list、tuple、dict、set、str等；
+#
+# 一类是generator，包括生成器和带yield的generator function。
+#
+# 这些可以直接作用于for循环的对象统称为可迭代对象：Iterable。
+#
+# 可以使用isinstance()判断一个对象是否是Iterable对象：
+
+from collections import Iterator
+
+print(isinstance([], Iterator))
+# print(isinstance({},Iterable))
+
+
+# 生成器都是Iterator对象，但list、dict、str虽然是Iterable，却不是Iterator。
+
+
+# 把list、dict、str等Iterable变成Iterator可以使用iter()函数：
+
 
 
 
